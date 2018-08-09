@@ -1,3 +1,33 @@
+//Item Controller
+const ItemCtrl = (function(){
+
+  const Item = function(name, id){
+    this.id = id;
+    this.name = name;
+  }
+
+  const data = {
+    items: StorageCtrl.getItemsFromStorage(),
+    completedItems: StorageCtrl.getCompletedItemsFromStorage(),
+    currentItem: null,
+  }
+
+  return {
+    addItem: function(name){
+      let ID;
+      // Create ID
+      if(data.items.length > 0){
+        ID = data.items[data.items.length - 1].id + 1;
+      } else {
+        ID = 0;
+      }
+      newItem = new Item(name, ID);
+      data.items.push(newItem);
+      return newItem;
+    }
+  }
+})();
+
 // App Controller
 const App = (function()){
   // Load event listeners
@@ -47,6 +77,18 @@ const App = (function()){
     if(localStorage.getItem('name') !== null){
       UICtrl.resetRememberForm();
     }
+  }
+
+  //Add item to item list
+  const addItem = function(e){
+    const item = UICtrl.getItemInput();
+    const newItem = ItemCtrl.addItem(item);
+    StorageCtrl.storeItem(newItem);
+    const items = ItemCtrl.getItems();
+    UICtrl.populateItemList(items);
+    UICtrl.showListItems();
+    UICtrl.clearInput();
+    e.preventDefault();
   }
 
   // Public methods
