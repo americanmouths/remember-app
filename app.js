@@ -1,19 +1,19 @@
 //Hide lists, hide remember form, if name in LS - show list form and grab stuff from LS
-window.onload = function() {
-  UICtrl.hideListForm();
-  UICtrl.hideItemList();
-  UICtrl.hideCompletedItemList();
-  UICtrl.hideStartOverBtn();
-  const name = localStorage.getItem('name');
-  if(name !== null){
-    UICtrl.updateName(name);
-    UICtrl.hideNameForm();
-    UICtrl.showListForm();
-    UICtrl.hideUpdateItemBtn();
-    UICtrl.showStartOverBtn();
-    getEverythingFromStorage();
-  }
-};
+document.addEventListener("DOMContentLoaded", function(event) {
+ UICtrl.hideListForm();
+ UICtrl.hideItemList();
+ UICtrl.hideCompletedItemList();
+ UICtrl.hideStartOverBtn();
+ const name = localStorage.getItem('name');
+ if(name !== null){
+   UICtrl.updateName(name);
+   UICtrl.hideNameForm();
+   UICtrl.showListForm();
+   UICtrl.hideUpdateItemBtn();
+   UICtrl.showStartOverBtn();
+   getEverythingFromStorage();
+ }
+ });
 
 //Grab everything from LS to display it
 function getEverythingFromStorage(){
